@@ -183,25 +183,18 @@ cocos2d::Scene* HelloWorld::createScene()
     return scene;
 }
 
-HelloWorld::HelloWorld()
+HelloWorld::HelloWorld() : _cue(nullptr)
 {
     /* ADX2 Atomライブラリの初期化。内部的に多重初期化は回避している */
     ADX2::ADX2Manager::initialize();
     
-    auto fp = [](const char* filename)
-    {
-        return FileUtils::getInstance()->fullPathForFilename(filename);
-    };
-    
-    std::string acf = fp("ADX2_samples.acf");
-    std::string acb = fp("Basic.acb");
-    std::string awb = fp("Basic.awb");
-    
-    _cue = new ADX2::Cue(acf.c_str(), acb.c_str(), awb.c_str());
+    auto cue = ADX2::Cue::create("ADX2_samples.acf", "Basic.acb", "Basic.awb");
+    this->setCue(cue);
 }
 
 HelloWorld::~HelloWorld()
 {
+    CC_SAFE_RELEASE_NULL(_cue);
     ADX2::ADX2Manager::finalize();
 }
 

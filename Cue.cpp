@@ -11,13 +11,50 @@
 
 namespace ADX2 {
     
-    Cue::Cue(const char* acf, const char* acb) : Cue::Cue(acf, acb, nullptr) { }
-    
-    Cue::Cue(const char* acf, const char* acb, const char* awb)
+    Cue::Cue()
     {
-        criAtomEx_RegisterAcfFile(NULL, acf, NULL, 0);
+    }
+    
+    Cue* Cue::create(const char *acf, const char *acb)
+    {
+        return Cue::create(acf, acb, nullptr);
+    }
+    
+    Cue* Cue::create(const char *acf, const char *acb, const char *awb)
+    {
+        auto cue = new Cue();
+        if (cue && cue->initWithFile(acf, acb, awb)) {
+            cue->autorelease();
+            return cue;
+        }
+        CC_SAFE_DELETE(cue);
+        return nullptr;
+    }
+    
+    bool Cue::initWithFile(const char* acf, const char* acb, const char* awb)
+    {
         
-        _acb = criAtomExAcb_LoadAcbFile(NULL, acb, NULL, awb, NULL, 0);
+        auto fp = [](const char* filename)
+        {
+            return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
+        };
+        
+        auto acfPath = fp(acf);
+        auto acbPath = fp(acb);
+        
+        criAtomEx_RegisterAcfFile(NULL, acfPath.c_str(), NULL, 0);
+        if (awb) {
+            auto awbPath = fp(awb);
+            _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, awbPath.c_str(), NULL, 0);
+        } else {
+            _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, NULL, NULL, 0);
+        }
+        
+        if (_acb == nullptr) {
+            return false;
+        }
+        
+        return true;
     }
     
     Cue::~Cue()
