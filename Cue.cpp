@@ -25,18 +25,17 @@ namespace ADX2 {
         criAtomExAcb_Release(_acb);
     }
     
-    int64_t Cue::playCueByID(uint32_t cueID)
+    CriAtomExPlaybackId Cue::playCueByID(CriAtomExCueId cueID)
     {
         auto player = ADX2Manager::getInstance()->_player;
         criAtomExPlayer_SetCueId(player, _acb, cueID);
-        
         
         int64_t playbackID = criAtomExPlayer_Start(player);
         
         return playbackID;
     }
     
-    void Cue::stop(int64_t playbackID)
+    void Cue::stop(CriAtomExPlaybackId playbackID)
     {
         criAtomExPlayback_Stop(playbackID);
     }
@@ -46,9 +45,9 @@ namespace ADX2 {
         return criAtomExAcb_GetCueNameById(_acb, cueID);
     }
     
-    int64_t Cue::getTime(uint32_t cueID)
+    int64_t Cue::getTime(CriAtomExPlaybackId playbackID)
     {
-        return criAtomExPlayback_GetTime(cueID);
+        return criAtomExPlayback_GetTime(playbackID);
     }
     
     CriAtomExPlaybackStatus Cue::getStatus(CriAtomExPlaybackId playbackID)

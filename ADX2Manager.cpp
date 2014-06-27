@@ -99,7 +99,6 @@ namespace ADX2 {
 #endif
         
         _dbasID = criAtomDbas_Create(NULL, NULL, 0);
-        std::cout << "aaa:" << voicePoolConfig.player_config.streaming_flag << std::endl;
         
         /* 上で作った設定オブジェクトを渡して、ボイスプールを作成 */
         _voicePool = criAtomExVoicePool_AllocateStandardVoicePool(&voicePoolConfig, NULL, 0);
