@@ -185,8 +185,19 @@ cocos2d::Scene* HelloWorld::createScene()
 
 HelloWorld::HelloWorld() : _cue(nullptr)
 {
+    CriAtomExStandardVoicePoolConfig vp_config;
+    criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
+    vp_config.num_voices = 8;
+    vp_config.player_config.streaming_flag = CRI_TRUE;
+    vp_config.player_config.max_sampling_rate = 48000 << 1;
+    
+    CriAtomExPlayerConfig pf_config;
+    criAtomExPlayer_SetDefaultConfig(&pf_config);
+    pf_config.max_path_strings = 1;
+    pf_config.max_path = 256;
+
     /* ADX2 Atomライブラリの初期化。内部的に多重初期化は回避している */
-    ADX2::ADX2Manager::initialize();
+    ADX2::ADX2Manager::initialize(pf_config, vp_config);
     
     auto cue = ADX2::Cue::create("ADX2_samples.acf", "Basic.acb", "Basic.awb");
     this->setCue(cue);

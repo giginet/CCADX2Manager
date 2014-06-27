@@ -28,18 +28,9 @@ namespace ADX2 {
     ADX2Manager* ADX2Manager::initialize()
     {
         assert(_instance == nullptr);
-        CriAtomExStandardVoicePoolConfig vp_config;
-        criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
-        vp_config.num_voices = 8;
-        vp_config.player_config.streaming_flag = CRI_TRUE;
-        vp_config.player_config.max_sampling_rate = 48000 << 1;
-        
-        CriAtomExPlayerConfig pf_config;
-        criAtomExPlayer_SetDefaultConfig(&pf_config);
-        pf_config.max_path_strings = 1;
-        pf_config.max_path = 256;
-        
-        return ADX2Manager::initialize(pf_config, vp_config);
+        CriAtomExStandardVoicePoolConfig voicePoolConfig;
+        CriAtomExPlayerConfig playerConfig;
+        return ADX2Manager::initialize(playerConfig, voicePoolConfig);
     }
     
     ADX2Manager::ADX2Manager(CriAtomExPlayerConfig playerConfig,
@@ -65,7 +56,7 @@ namespace ADX2 {
         auto errorCallback = [](const char *errid, uint32_t p1, uint32_t p2, uint32_t *parray) {
             const CriChar8 *errmsg;
             errmsg = criErr_ConvertIdToMessage(errid, p1, p2);
-            std::cout << errmsg << std::endl;
+            cocos2d::log("%s", errmsg);
         };
         criErr_SetCallback(errorCallback);
         

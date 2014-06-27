@@ -11,7 +11,7 @@
 
 namespace ADX2 {
     
-    Cue::Cue()
+    Cue::Cue() : _acb(nullptr)
     {
     }
     
