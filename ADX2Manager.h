@@ -25,8 +25,6 @@ namespace ADX2 {
         /// D-BASのID
 	CriAtomDbasId _dbasID;
       
-        ADX2Manager();
-        
         ADX2Manager(CriAtomExPlayerConfig playerConfig,
                     CriAtomExStandardVoicePoolConfig voicePoolConfig);
      public:
@@ -34,12 +32,13 @@ namespace ADX2 {
         
         virtual ~ADX2Manager();
         
+        static ADX2Manager* initialize();
         static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
         static ADX2Manager* getInstance();
         void update();
         void stopAll();
         int getVoiceNum();
-        void finalize();
+        static void finalize();
     };
     
 }

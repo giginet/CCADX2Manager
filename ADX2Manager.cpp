@@ -25,22 +25,20 @@ namespace ADX2 {
         return _instance;
     }
     
-    ADX2Manager::ADX2Manager()
+    ADX2Manager* ADX2Manager::initialize()
     {
-        /* ボイスプールの設定。まずはデフォルト設定にして、その上で必要な値へ書き換えていく */
         CriAtomExStandardVoicePoolConfig vp_config;
-
+        criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
         vp_config.num_voices = 8;
-        vp_config.player_config.streaming_flag		= CRI_TRUE;
-        vp_config.player_config.max_sampling_rate	= 48000 * 2;
+        vp_config.player_config.streaming_flag = CRI_TRUE;
+        vp_config.player_config.max_sampling_rate = 48000 << 1;
         
-        /* Player作成にも設定は必要 */
         CriAtomExPlayerConfig pf_config;
         criAtomExPlayer_SetDefaultConfig(&pf_config);
-        pf_config.max_path_strings	= 1;
-        pf_config.max_path			= 256;
-
-        ADX2Manager::ADX2Manager(pf_config, vp_config);
+        pf_config.max_path_strings = 1;
+        pf_config.max_path = 256;
+        
+        return ADX2Manager::initialize(pf_config, vp_config);
     }
     
     ADX2Manager::ADX2Manager(CriAtomExPlayerConfig playerConfig,
@@ -48,7 +46,15 @@ namespace ADX2 {
     {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         auto interruptionListener = [](void *userData, UInt32 interruptionState) {
-            
+            switch (interruptionState) {
+                case kAudioSessionBeginInterruption:
+                    criAtomEx_StopSound_IOS();
+                    break;
+                case kAudioSessionEndInterruption:
+                    AudioSessionSetActive(true);
+                    criAtomEx_StartSound_IOS();
+                    break;
+            }
         };
         AudioSessionInitialize(NULL, NULL, interruptionListener, NULL);
         UInt32 category = kAudioSessionCategory_AmbientSound;
@@ -56,6 +62,9 @@ namespace ADX2 {
         AudioSessionSetActive(true);
 #endif
         auto errorCallback = [](const char *errid, uint32_t p1, uint32_t p2, uint32_t *parray) {
+            const CriChar8 *errmsg;
+            errmsg = criErr_ConvertIdToMessage(errid, p1, p2);
+            std::cout << errmsg << std::endl;
         };
         criErr_SetCallback(errorCallback);
         
@@ -89,9 +98,7 @@ namespace ADX2 {
 #endif
         
         _dbasID = criAtomDbas_Create(NULL, NULL, 0);
-        
-        /* ボイスプールの設定。まずはデフォルト設定にして、その上で必要な値へ書き換えていく */
-        criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&voicePoolConfig);
+        std::cout << "aaa:" << voicePoolConfig.player_config.streaming_flag << std::endl;
         
         /* 上で作った設定オブジェクトを渡して、ボイスプールを作成 */
         _voicePool = criAtomExVoicePool_AllocateStandardVoicePool(&voicePoolConfig, NULL, 0);
@@ -116,9 +123,14 @@ namespace ADX2 {
     
     void ADX2Manager::finalize()
     {
+        delete _instance;
+        _instance = nullptr;
+    }
+    
+    ADX2Manager::~ADX2Manager()
+    {
         criAtomExPlayer_Stop(_player);
         criAtomExVoicePool_Free(_voicePool);
-        //criAtomExAcb_Release(g_acb);
         criAtomEx_UnregisterAcf();
         criAtomDbas_Destroy(_dbasID);
         
@@ -129,10 +141,6 @@ namespace ADX2 {
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         criAtomEx_Finalize_PC();
 #endif
-    }
-    
-    ADX2Manager::~ADX2Manager()
-    {
     }
 
     void ADX2Manager::stopAll()

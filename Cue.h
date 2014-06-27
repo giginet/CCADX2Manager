@@ -27,6 +27,7 @@ namespace ADX2 {
         void stop(int64_t playbackID);
         const char* getCueName(CriAtomExCueId cueID);
         int64_t getTime(uint32_t cueID);
+        CriAtomExPlaybackStatus getStatus(CriAtomExPlaybackId id);
     };
     
 }

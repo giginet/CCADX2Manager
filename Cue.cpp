@@ -51,4 +51,9 @@ namespace ADX2 {
         return criAtomExPlayback_GetTime(cueID);
     }
     
+    CriAtomExPlaybackStatus Cue::getStatus(CriAtomExPlaybackId playbackID)
+    {
+        return criAtomExPlayback_GetStatus(playbackID);
+    }
+    
 }

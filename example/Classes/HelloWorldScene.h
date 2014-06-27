@@ -3,13 +3,7 @@
 
 #include "cocos2d.h"
 
-#include "cri_adx2le.h"
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include <AudioToolbox/AudioSession.h>
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "platform/android/jni/JniHelper.h"
-#endif
+#include "Cue.h"
 
 #include <string>
 
@@ -42,6 +36,7 @@ private:
     cocos2d::LabelTTF	*timeLabel;
 
     CriSint64			currentPlaybackId;
+    ADX2::Cue* _cue;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
