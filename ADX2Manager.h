@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include "cri_adx2le.h"
+#include "Cue.h"
 
 namespace ADX2 {
     
@@ -23,15 +24,21 @@ namespace ADX2 {
 	CriAtomExPlayerHn _player;
         /// D-BASのID
 	CriAtomDbasId _dbasID;
+      
+        ADX2Manager();
         
-        ADX2Manager(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
+        ADX2Manager(CriAtomExPlayerConfig playerConfig,
+                    CriAtomExStandardVoicePoolConfig voicePoolConfig);
      public:
+        friend Cue;
         
         virtual ~ADX2Manager();
         
         static ADX2Manager* initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig);
         static ADX2Manager* getInstance();
         void update();
+        void stopAll();
+        int getVoiceNum();
         void finalize();
     };
     

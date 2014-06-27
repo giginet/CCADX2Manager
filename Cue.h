@@ -15,20 +15,19 @@
 namespace ADX2 {
     
     class Cue {
+     private:
+        /// 波形データバンクのハンドル
+        CriAtomExAcbHn _acb;
      public:
         Cue(const char* acf, const char* acb);
-        Cue(const char* acf, const char* awb);
+        Cue(const char* acf, const char* acb, const char* awb);
         virtual ~Cue();
         
         int64_t playCueByID(uint32_t cueID);
         void stop(int64_t playbackID);
-        void stopAll();
-        void pauseAll(bool sw);
-        const char* getCueName();
-        int getVoiceNum();
+        const char* getCueName(CriAtomExCueId cueID);
         int64_t getTime(uint32_t cueID);
-        
-    }
+    };
     
 }
 

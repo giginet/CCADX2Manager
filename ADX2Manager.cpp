@@ -16,8 +16,7 @@
 
 namespace ADX2 {
     
-     ADX2Manager* ADX2Manager::_instance = nullptr;
-    
+    ADX2Manager* ADX2Manager::_instance = nullptr;
     
     ADX2Manager* ADX2Manager::initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig)
     {
@@ -26,7 +25,26 @@ namespace ADX2 {
         return _instance;
     }
     
-    ADX2Manager::ADX2Manager(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig)
+    ADX2Manager::ADX2Manager()
+    {
+        /* ボイスプールの設定。まずはデフォルト設定にして、その上で必要な値へ書き換えていく */
+        CriAtomExStandardVoicePoolConfig vp_config;
+
+        vp_config.num_voices = 8;
+        vp_config.player_config.streaming_flag		= CRI_TRUE;
+        vp_config.player_config.max_sampling_rate	= 48000 * 2;
+        
+        /* Player作成にも設定は必要 */
+        CriAtomExPlayerConfig pf_config;
+        criAtomExPlayer_SetDefaultConfig(&pf_config);
+        pf_config.max_path_strings	= 1;
+        pf_config.max_path			= 256;
+
+        ADX2Manager::ADX2Manager(pf_config, vp_config);
+    }
+    
+    ADX2Manager::ADX2Manager(CriAtomExPlayerConfig playerConfig,
+                             CriAtomExStandardVoicePoolConfig voicePoolConfig)
     {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         auto interruptionListener = [](void *userData, UInt32 interruptionState) {
@@ -51,9 +69,7 @@ namespace ADX2 {
         
         criAtomEx_SetUserAllocator(userAlloc, userFree, NULL);
         
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-        criAtomEx_Initialize_PC(NULL, NULL, 0);
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
         criAtomEx_Initialize_IOS(NULL, NULL, 0);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         criAtomEx_Initialize_ANDROID(NULL, NULL, 0);
@@ -68,6 +84,8 @@ namespace ADX2 {
         auto android_context_object = (jobject)methodInfo.env->CallStaticObjectMethod( methodInfo.classID, methodInfo.methodID );
         /* 有効化。assetsフォルダはCocosプロジェクトのResource相当なので、ほぼ必須と言って良い手順 */
         criFs_EnableAssetsAccess_ANDROID(cocos2d::JniHelper::getJavaVM(), android_context_object);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+        criAtomEx_Initialize_PC(NULL, NULL, 0);
 #endif
         
         _dbasID = criAtomDbas_Create(NULL, NULL, 0);
@@ -91,6 +109,11 @@ namespace ADX2 {
         return _instance;
     }
     
+    void ADX2Manager::update()
+    {
+    	criAtomEx_ExecuteMain();
+    }
+    
     void ADX2Manager::finalize()
     {
         criAtomExPlayer_Stop(_player);
@@ -107,4 +130,22 @@ namespace ADX2 {
         criAtomEx_Finalize_PC();
 #endif
     }
+    
+    ADX2Manager::~ADX2Manager()
+    {
+    }
+
+    void ADX2Manager::stopAll()
+    {
+        criAtomExPlayer_Stop(_player);
+    }
+    
+    int ADX2Manager::getVoiceNum()
+    {
+        int32_t currentVnum;
+        criAtomExVoicePool_GetNumUsedVoices(_voicePool, &currentVnum, NULL);
+        return currentVnum;
+    }
+    
+
 }
