@@ -13,8 +13,8 @@
 
 #include <string>
 
-#include "../ADX2_samples_acf.h"
-#include "../Basic.h"
+#include "ADX2/ADX2_samples_acf.h"
+#include "ADX2/Basic.h"
 
 class HelloWorld : public cocos2d::Layer
 {
