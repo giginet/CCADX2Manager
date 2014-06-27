@@ -69,7 +69,7 @@ bool HelloWorld::init()
     {
         return false;
     }
-    cocos2d::Size size = cocos2d::Director::sharedDirector()->getWinSize();
+    cocos2d::Size size = cocos2d::Director::getInstance()->getWinSize();
     
     /* GUIの設定と生成。そして配置。ボタンとラベル */
     {
@@ -85,7 +85,7 @@ bool HelloWorld::init()
         };
         
         /* ラベル生成 & UIとして追加の処理 */
-        auto addLabel = [this, &size](cocos2d::LabelTTF *pLabel, float x, float y){
+        auto addLabel = [this, &size](cocos2d::Label *pLabel, float x, float y){
             pLabel->setPosition(cocos2d::Point(size.width  * x, size.height * y));
             addChild(pLabel);
         };
@@ -96,7 +96,7 @@ bool HelloWorld::init()
                        [this, id](Ref*)->void{currentPlaybackId = _cue->playCueByID(id);});
             
             /* キュー名のラベルを併記 */
-            addLabel(cocos2d::LabelTTF::create(_cue->getCueName(id), "fonts/Marker Felt.ttf", 30),
+            addLabel(cocos2d::Label::createWithTTF(_cue->getCueName(id), "fonts/Marker Felt.ttf", 30),
                      0.30f, 0.95f - static_cast<float>(id)*0.10f);
         }
         
@@ -104,7 +104,7 @@ bool HelloWorld::init()
         {
             pushButton(0.60f, 0.95f, "StopNormal.png", "StopPush.png",
                        CC_CALLBACK_1(HelloWorld::menuStop, this));
-            addLabel(cocos2d::LabelTTF::create("Stop", "fonts/Marker Felt.ttf", 30),
+            addLabel(cocos2d::Label::createWithTTF("Stop", "fonts/Marker Felt.ttf", 30),
                      0.75f, 0.95f);
         }
         
@@ -112,7 +112,7 @@ bool HelloWorld::init()
         {
             pushButton(0.60f, 0.85f, "StopNormal.png", "StopPush.png",
                        CC_CALLBACK_1(HelloWorld::menuAllStop, this));
-            addLabel(cocos2d::LabelTTF::create("StopAll", "fonts/Marker Felt.ttf", 30),
+            addLabel(cocos2d::Label::createWithTTF("StopAll", "fonts/Marker Felt.ttf", 30),
                      0.75f, 0.85f);
         }
         
@@ -127,14 +127,14 @@ bool HelloWorld::init()
         {
             //adx2_get_voice_num(),
             
-            vnumLabel = cocos2d::LabelTTF::create("",
+            vnumLabel = cocos2d::Label::createWithTTF(StringUtils::toString(ADX2::ADX2Manager::getInstance()->getVoiceNum()),
                                                   "fonts/Marker Felt.ttf", 30);
             addLabel(vnumLabel, 0.75f, 0.15f);
         }
         
         /* 現在のプレイヤー状態を示すラベルを追加 */
         {
-            stateLabel = cocos2d::LabelTTF::create(
+            stateLabel = cocos2d::Label::createWithTTF(
                                                    g_playback_status_description[ _cue->getStatus(currentPlaybackId) ],
                                                    "fonts/Marker Felt.ttf", 30);
             addLabel(stateLabel, 0.75f, 0.10f);
@@ -144,14 +144,13 @@ bool HelloWorld::init()
         {
             auto time = _cue->getTime(currentPlaybackId);
             auto string = StringUtils::format("[Time(msec): %s]", StringUtils::toString(time).c_str());
-            timeLabel = cocos2d::LabelTTF::create(
+            timeLabel = cocos2d::Label::createWithTTF(
                                                   string,
                                                   "fonts/Marker Felt.ttf", 30);
             addLabel(timeLabel, 0.75f, 0.05f);
         }
     }
     
-    setTouchEnabled( true );
     scheduleUpdate();
     
     return true;
@@ -197,8 +196,6 @@ HelloWorld::HelloWorld()
     std::string acf = fp("ADX2_samples.acf");
     std::string acb = fp("Basic.acb");
     std::string awb = fp("Basic.awb");
-    
-    log("%s", acf.c_str());
     
     _cue = new ADX2::Cue(acf.c_str(), acb.c_str(), awb.c_str());
 }

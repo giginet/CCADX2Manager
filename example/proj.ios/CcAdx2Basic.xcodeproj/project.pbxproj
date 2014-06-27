@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0711ED93195D4A4E00426098 /* ADX2Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ED91195D4A4E00426098 /* ADX2Manager.cpp */; };
 		0711ED96195D4C3600426098 /* Cue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ED94195D4C3600426098 /* Cue.cpp */; };
+		0711ED9B195D6F3000426098 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0711ED9A195D6F2F00426098 /* fonts */; };
 		1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0D180E9839004C840B /* libbox2d iOS.a */; };
 		1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0B180E9839004C840B /* libchipmunk iOS.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2dx iOS.a */; };
@@ -169,6 +170,7 @@
 		0711ED92195D4A4E00426098 /* ADX2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADX2Manager.h; path = ../../ADX2Manager.h; sourceTree = "<group>"; };
 		0711ED94195D4C3600426098 /* Cue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cue.cpp; path = ../../Cue.cpp; sourceTree = "<group>"; };
 		0711ED95195D4C3600426098 /* Cue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cue.h; path = ../../Cue.h; sourceTree = "<group>"; };
+		0711ED9A195D6F2F00426098 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				672DBB381940D6EA008D03B0 /* StopNormal.png */,
 				672DBB391940D6EA008D03B0 /* StopPush.png */,
 				1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */,
+				0711ED9A195D6F2F00426098 /* fonts */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -520,6 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				0711ED9B195D6F3000426098 /* fonts in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,

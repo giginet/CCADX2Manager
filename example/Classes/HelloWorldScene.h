@@ -31,9 +31,9 @@ private:
 	void menuStop(cocos2d::Ref* pSender);
 	void menuAllStop(cocos2d::Ref* pSender);
 
-    cocos2d::LabelTTF	*vnumLabel;
-    cocos2d::LabelTTF	*stateLabel;
-    cocos2d::LabelTTF	*timeLabel;
+    cocos2d::Label *vnumLabel;
+    cocos2d::Label *stateLabel;
+    cocos2d::Label *timeLabel;
 
     CriSint64			currentPlaybackId;
     ADX2::Cue* _cue;

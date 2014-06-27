@@ -27,6 +27,7 @@ namespace ADX2 {
     
     ADX2Manager* ADX2Manager::initialize()
     {
+        assert(_instance == nullptr);
         CriAtomExStandardVoicePoolConfig vp_config;
         criAtomExVoicePool_SetDefaultConfigForStandardVoicePool(&vp_config);
         vp_config.num_voices = 8;
@@ -110,9 +111,7 @@ namespace ADX2 {
     
     ADX2Manager* ADX2Manager::getInstance()
     {
-        if (_instance == nullptr) {
-            assert(_instance == nullptr);
-        }
+        assert(_instance);
         return _instance;
     }
     
