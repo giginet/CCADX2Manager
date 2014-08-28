@@ -1,12 +1,12 @@
 //
-//  ADX2Manager.cpp
+//  Manager.cpp
 //  CcAdx2Basic
 //
 //  Created by giginet on 2014/6/27.
 //
 //
 
-#include "ADX2Manager.h"
+#include "Manager.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include <AudioToolbox/AudioSession.h>
@@ -16,24 +16,24 @@
 
 namespace ADX2 {
     
-    ADX2Manager* ADX2Manager::_instance = nullptr;
+    Manager* Manager::_instance = nullptr;
     
-    ADX2Manager* ADX2Manager::initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig)
+    Manager* Manager::initialize(CriAtomExPlayerConfig playerConfig, CriAtomExStandardVoicePoolConfig voicePoolConfig)
     {
-        _instance = new ADX2Manager(playerConfig, voicePoolConfig);
+        _instance = new Manager(playerConfig, voicePoolConfig);
         
         return _instance;
     }
     
-    ADX2Manager* ADX2Manager::initialize()
+    Manager* Manager::initialize()
     {
         assert(_instance == nullptr);
         CriAtomExStandardVoicePoolConfig voicePoolConfig;
         CriAtomExPlayerConfig playerConfig;
-        return ADX2Manager::initialize(playerConfig, voicePoolConfig);
+        return Manager::initialize(playerConfig, voicePoolConfig);
     }
     
-    ADX2Manager::ADX2Manager(CriAtomExPlayerConfig playerConfig,
+    Manager::Manager(CriAtomExPlayerConfig playerConfig,
                              CriAtomExStandardVoicePoolConfig voicePoolConfig)
     {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -99,24 +99,24 @@ namespace ADX2 {
         _player = criAtomExPlayer_Create(&playerConfig, NULL, 0);
     }
     
-    ADX2Manager* ADX2Manager::getInstance()
+    Manager* Manager::getInstance()
     {
         assert(_instance);
         return _instance;
     }
     
-    void ADX2Manager::update()
+    void Manager::update()
     {
     	criAtomEx_ExecuteMain();
     }
     
-    void ADX2Manager::finalize()
+    void Manager::finalize()
     {
         delete _instance;
         _instance = nullptr;
     }
     
-    ADX2Manager::~ADX2Manager()
+    Manager::~Manager()
     {
         criAtomExPlayer_Stop(_player);
         criAtomExVoicePool_Free(_voicePool);
@@ -132,12 +132,12 @@ namespace ADX2 {
 #endif
     }
 
-    void ADX2Manager::stopAll()
+    void Manager::stopAll()
     {
         criAtomExPlayer_Stop(_player);
     }
     
-    int ADX2Manager::getVoiceNum()
+    int Manager::getVoiceNum()
     {
         int32_t currentVnum;
         criAtomExVoicePool_GetNumUsedVoices(_voicePool, &currentVnum, NULL);

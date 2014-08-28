@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0711ED93195D4A4E00426098 /* ADX2Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ED91195D4A4E00426098 /* ADX2Manager.cpp */; };
-		0711ED96195D4C3600426098 /* Cue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0711ED94195D4C3600426098 /* Cue.cpp */; };
 		0711ED9B195D6F3000426098 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0711ED9A195D6F2F00426098 /* fonts */; };
+		07A3972719AF053A00A02C7E /* CueSheet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3972319AF053A00A02C7E /* CueSheet.cpp */; };
+		07A3972819AF053A00A02C7E /* Manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 07A3972519AF053A00A02C7E /* Manager.cpp */; };
 		1AC6FB2E180E99EB004C840B /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0D180E9839004C840B /* libbox2d iOS.a */; };
 		1AC6FB2F180E99EB004C840B /* libchipmunk iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0B180E9839004C840B /* libchipmunk iOS.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2dx iOS.a */; };
@@ -166,11 +166,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0711ED91195D4A4E00426098 /* ADX2Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ADX2Manager.cpp; path = ../../ADX2Manager.cpp; sourceTree = "<group>"; };
-		0711ED92195D4A4E00426098 /* ADX2Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADX2Manager.h; path = ../../ADX2Manager.h; sourceTree = "<group>"; };
-		0711ED94195D4C3600426098 /* Cue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Cue.cpp; path = ../../Cue.cpp; sourceTree = "<group>"; };
-		0711ED95195D4C3600426098 /* Cue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Cue.h; path = ../../Cue.h; sourceTree = "<group>"; };
 		0711ED9A195D6F2F00426098 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		07A3972319AF053A00A02C7E /* CueSheet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CueSheet.cpp; path = ../../ADX2Manager/CueSheet.cpp; sourceTree = "<group>"; };
+		07A3972419AF053A00A02C7E /* CueSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CueSheet.h; path = ../../ADX2Manager/CueSheet.h; sourceTree = "<group>"; };
+		07A3972519AF053A00A02C7E /* Manager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Manager.cpp; path = ../../ADX2Manager/Manager.cpp; sourceTree = "<group>"; };
+		07A3972619AF053A00A02C7E /* Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Manager.h; path = ../../ADX2Manager/Manager.h; sourceTree = "<group>"; };
+		07A3972919AF054E00A02C7E /* ADX2Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ADX2Manager.h; path = ../Classes/ADX2Manager.h; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = ../Classes/AppDelegate.cpp; sourceTree = "<group>"; };
@@ -274,10 +275,11 @@
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
 				1AFAF8B516D35DE700DB1158 /* HelloWorldScene.cpp */,
 				1AFAF8B616D35DE700DB1158 /* HelloWorldScene.h */,
-				0711ED91195D4A4E00426098 /* ADX2Manager.cpp */,
-				0711ED92195D4A4E00426098 /* ADX2Manager.h */,
-				0711ED94195D4C3600426098 /* Cue.cpp */,
-				0711ED95195D4C3600426098 /* Cue.h */,
+				07A3972319AF053A00A02C7E /* CueSheet.cpp */,
+				07A3972419AF053A00A02C7E /* CueSheet.h */,
+				07A3972519AF053A00A02C7E /* Manager.cpp */,
+				07A3972619AF053A00A02C7E /* Manager.h */,
+				07A3972919AF054E00A02C7E /* ADX2Manager.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -558,12 +560,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A3972819AF053A00A02C7E /* Manager.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				07A3972719AF053A00A02C7E /* CueSheet.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
-				0711ED93195D4A4E00426098 /* ADX2Manager.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
-				0711ED96195D4C3600426098 /* Cue.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

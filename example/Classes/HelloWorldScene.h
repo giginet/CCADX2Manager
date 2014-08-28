@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-#include "Cue.h"
+#include "ADX2Manager.h"
 
 #include <string>
 

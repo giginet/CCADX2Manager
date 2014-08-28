@@ -20,7 +20,7 @@
  */
 
 #include "HelloWorldScene.h"
-#include "ADX2Manager.h"
+#include "Manager.h"
 
 /* プレイヤーの状態 */
 const std::string g_playback_status_description[] = {
@@ -59,7 +59,7 @@ void HelloWorld::menuStop(Ref* pSender)
 /* 画面に配置するUIボタンに割り当てるコールバック。音をプレイヤーごと止める */
 void HelloWorld::menuAllStop(Ref* pSender)
 {
-    ADX2::ADX2Manager::getInstance()->stopAll();
+    ADX2::Manager::getInstance()->stopAll();
 }
 
 bool HelloWorld::init()
@@ -127,7 +127,7 @@ bool HelloWorld::init()
         {
             //adx2_get_voice_num(),
             
-            vnumLabel = cocos2d::Label::createWithTTF(StringUtils::toString(ADX2::ADX2Manager::getInstance()->getVoiceNum()),
+            vnumLabel = cocos2d::Label::createWithTTF(StringUtils::toString(ADX2::Manager::getInstance()->getVoiceNum()),
                                                   "fonts/Marker Felt.ttf", 30);
             addLabel(vnumLabel, 0.75f, 0.15f);
         }
@@ -159,10 +159,10 @@ bool HelloWorld::init()
 void HelloWorld::update(float dt)
 {
     /* ADX2 Atomライブラリのアップデート処理 */
-    ADX2::ADX2Manager::getInstance()->update();
+    ADX2::Manager::getInstance()->update();
     
     /* ラベル情報の更新 */
-    vnumLabel->setString(StringUtils::toString(ADX2::ADX2Manager::getInstance()->getVoiceNum()));
+    vnumLabel->setString(StringUtils::toString(ADX2::Manager::getInstance()->getVoiceNum()));
     stateLabel->setString(g_playback_status_description[ _cue->getStatus(currentPlaybackId) ]);
     timeLabel->setString(StringUtils::toString(_cue->getTime(currentPlaybackId)));
 }
@@ -197,7 +197,7 @@ HelloWorld::HelloWorld() : _cue(nullptr)
     pf_config.max_path = 256;
 
     /* ADX2 Atomライブラリの初期化。内部的に多重初期化は回避している */
-    ADX2::ADX2Manager::initialize(pf_config, vp_config);
+    ADX2::Manager::initialize(pf_config, vp_config);
     
     auto cue = ADX2::Cue::create("ADX2_samples.acf", "Basic.acb", "Basic.awb");
     this->setCue(cue);
@@ -206,6 +206,6 @@ HelloWorld::HelloWorld() : _cue(nullptr)
 HelloWorld::~HelloWorld()
 {
     CC_SAFE_RELEASE_NULL(_cue);
-    ADX2::ADX2Manager::finalize();
+    ADX2::Manager::finalize();
 }
 

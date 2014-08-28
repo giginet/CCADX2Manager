@@ -1,13 +1,13 @@
 //
-//  Cue.h
+//  CueSheet.h
 //  CcAdx2Basic
 //
 //  Created by giginet on 2014/6/27.
 //
 //
 
-#ifndef __CcAdx2Basic__Cue__
-#define __CcAdx2Basic__Cue__
+#ifndef __CcAdx2Basic__CueSheet__
+#define __CcAdx2Basic__CueSheet__
 
 #include <iostream>
 #include "cri_adx2le.h"
@@ -15,14 +15,14 @@
 
 namespace ADX2 {
     
-    class Cue :public cocos2d::Ref {
-     private:
+    class CueSheet :public cocos2d::Ref {
+    private:
         /// 波形データバンクのハンドル
         CriAtomExAcbHn _acb;
-     
-     CC_CONSTRUCTOR_ACCESS:
         
-        Cue();
+    CC_CONSTRUCTOR_ACCESS:
+        
+        CueSheet();
         
         /**
          *  ファイルからCueSheetを初期化します
@@ -31,10 +31,10 @@ namespace ADX2 {
          *  @param awbのファイル名
          */
         bool initWithFile(const char* acf, const char* acb, const char* awb);
-    
-        virtual ~Cue();
         
-     public:
+        virtual ~CueSheet();
+        
+    public:
         
         /**
          *  CueSheet内の指定IDの音声データを鳴らします
@@ -42,10 +42,10 @@ namespace ADX2 {
          *  @return 再生されたサウンドのPlaybackID
          */
         CriAtomExPlaybackId playCueByID(CriAtomExCueId cueID);
-    
-        static Cue* create(const char* acf, const char* acb, const char* awb);
         
-        static Cue* create(const char* acf, const char* acb);
+        static CueSheet* create(const char* acf, const char* acb, const char* awb);
+        
+        static CueSheet* create(const char* acf, const char* acb);
         
         /**
          *  指定したPlaybackIDのサウンドを停止します
@@ -80,4 +80,4 @@ namespace ADX2 {
 }
 
 
-#endif /* defined(__CcAdx2Basic__Cue__) */
+#endif /* defined(__CcAdx2Basic__CueSheet__) */
