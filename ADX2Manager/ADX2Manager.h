@@ -9,7 +9,7 @@
 #ifndef CcAdx2Basic_Manager_h
 #define CcAdx2Basic_Manager_h
 
-#include "Manager/Manager.h"
-#include "Manager/CueSheet.h"
+#include "Manager.h"
+#include "CueSheet.h"
 
 #endif
