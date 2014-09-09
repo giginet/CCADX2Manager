@@ -36,7 +36,13 @@ namespace ADX2 {
         
         auto fp = [](const char* filename)
         {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
             return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+            /* assetsへのアクセスパスは、必ずassets以下からの相対パスでファイルを指定する
+             * パスの先頭に'/'文字が入ってはダメ */
+            return std::string(filename);
+#endif
         };
         
         auto acfPath = fp(acf);
