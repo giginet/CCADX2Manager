@@ -29,3 +29,9 @@ void update(float dt)
 }
 
 ```
+
+# Run example
+
+1. copy `cocos2d` to `example`
+2. Open `proj.ios/CcAdx2Basic.xcodeproj`
+3. Build & Run
