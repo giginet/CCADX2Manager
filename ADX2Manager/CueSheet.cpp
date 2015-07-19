@@ -31,26 +31,26 @@ namespace ADX2 {
         return nullptr;
     }
     
+    std::string CueSheet::getFullPath(const char *filename)
+    {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+        /* assetsへのアクセスパスは、必ずassets以下からの相対パスでファイルを指定する
+         * パスの先頭に'/'文字が入ってはダメ */
+        return std::string(filename);
+#endif
+    }
+    
     bool CueSheet::initWithFile(const char* acf, const char* acb, const char* awb)
     {
         
-        auto fp = [](const char* filename)
-        {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-            return cocos2d::FileUtils::getInstance()->fullPathForFilename(filename);
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID) || (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-            /* assetsへのアクセスパスは、必ずassets以下からの相対パスでファイルを指定する
-             * パスの先頭に'/'文字が入ってはダメ */
-            return std::string(filename);
-#endif
-        };
-        
-        auto acfPath = fp(acf);
-        auto acbPath = fp(acb);
+        auto acfPath = getFullPath(acf);
+        auto acbPath = getFullPath(acb);
         
         criAtomEx_RegisterAcfFile(NULL, acfPath.c_str(), NULL, 0);
         if (awb) {
-            auto awbPath = fp(awb);
+            auto awbPath = getFullPath(awb);
             _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, awbPath.c_str(), NULL, 0);
         } else {
             _acb = criAtomExAcb_LoadAcbFile(NULL, acbPath.c_str(), NULL, NULL, NULL, 0);

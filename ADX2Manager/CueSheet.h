@@ -34,6 +34,8 @@ namespace ADX2 {
         
         virtual ~CueSheet();
         
+        std::string getFullPath(const char* filename);
+        
     public:
         
         /**
