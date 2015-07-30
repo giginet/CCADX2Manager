@@ -74,16 +74,12 @@ namespace ADX2 {
         criAtomEx_Initialize_IOS(NULL, NULL, 0);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
         criAtomEx_Initialize_ANDROID(NULL, NULL, 0);
-        
-        /* ANDROIDの場合で必要な一手間。assetsフォルダへのアクセスを可能にする */
-        /* まずはJniHelperでActivityのContextを取得 */
         cocos2d::JniMethodInfo methodInfo;
         cocos2d::JniHelper::getStaticMethodInfo(methodInfo,
                                                 "org/cocos2dx/lib/Cocos2dxActivity",
                                                 "getContext",
                                                 "()Landroid/content/Context;");
         auto android_context_object = (jobject)methodInfo.env->CallStaticObjectMethod( methodInfo.classID, methodInfo.methodID );
-        /* 有効化。assetsフォルダはCocosプロジェクトのResource相当なので、ほぼ必須と言って良い手順 */
         criFs_EnableAssetsAccess_ANDROID(cocos2d::JniHelper::getJavaVM(), android_context_object);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         criAtomEx_Initialize_PC(NULL, NULL, 0);
@@ -93,10 +89,8 @@ namespace ADX2 {
         
         _dbasID = criAtomDbas_Create(NULL, NULL, 0);
         
-        /* 上で作った設定オブジェクトを渡して、ボイスプールを作成 */
         _voicePool = criAtomExVoicePool_AllocateStandardVoicePool(&voicePoolConfig, NULL, 0);
         
-        /* Player作成にも設定は必要 */
         criAtomExPlayer_SetDefaultConfig(&playerConfig);
         _player = criAtomExPlayer_Create(&playerConfig, NULL, 0);
     }
