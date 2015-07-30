@@ -87,6 +87,8 @@ namespace ADX2 {
         criFs_EnableAssetsAccess_ANDROID(cocos2d::JniHelper::getJavaVM(), android_context_object);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         criAtomEx_Initialize_PC(NULL, NULL, 0);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+        criAtomEx_Initialize_MACOSX(NULL, NULL, 0);
 #endif
         
         _dbasID = criAtomDbas_Create(NULL, NULL, 0);
@@ -129,6 +131,8 @@ namespace ADX2 {
         criAtomEx_Finalize_ANDROID();
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         criAtomEx_Finalize_PC();
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+        criAtomEx_Finalize_MACOSX;
 #endif
     }
 

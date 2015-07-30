@@ -13,6 +13,16 @@
 #include "cocos2d.h"
 #include "cri_adx2le.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#include "cri_le_atom_ios.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "cri_le_atom_android.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_PC)
+#include "cri_le_atom_pc.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MACOSX)
+#include "cri_le_atom_macosx.h"
+#endif
+
 namespace ADX2 {
     
     class Manager {
