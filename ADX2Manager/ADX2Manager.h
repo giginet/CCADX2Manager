@@ -3,5 +3,6 @@
 
 #include "Manager.h"
 #include "CueSheet.h"
+#include "SharedCueSheet.h"
 
 #endif
