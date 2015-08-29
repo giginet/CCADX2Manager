@@ -71,7 +71,7 @@ namespace ADX2 {
     CriAtomExPlaybackId CueSheet::playCueByID(CriAtomExCueId cueID, const char *keyword)
     {
         CriAtomExPlaybackId playbackID = this->playCueByID(cueID);
-        _playbackIDs.insert(std::make_pair(keyword, playbackID));
+        _playbackIDs[keyword] = playbackID;
         return playbackID;
     }
     

@@ -2,7 +2,7 @@
 #define __CCADX2Manager__CueSheet__
 
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include "cri_adx2le.h"
 #include "cocos2d.h"
 
