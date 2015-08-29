@@ -46,7 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // get cue sheet
     sharedCueSheet->getCueSheet()->playCueByID(CRI_SAMPLE_BGM);
 
-    // perge shared cue sheet
+    // purge shared cue sheet
     SharedCueSheet::destroyInstance();
 }
 ```
