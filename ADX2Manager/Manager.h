@@ -1,13 +1,5 @@
-//
-//  Manager.h
-//  CcAdx2Basic
-//
-//  Created by giginet on 2014/6/27.
-//
-//
-
-#ifndef __CcAdx2Basic__Manager__
-#define __CcAdx2Basic__Manager__
+#ifndef __CCADX2Manager__Manager__
+#define __CCADX2Manager__Manager__
 
 #include <iostream>
 #include "cocos2d.h"
@@ -54,4 +46,4 @@ namespace ADX2 {
     
 }
 
-#endif /* defined(__CcAdx2Basic__Manager__) */
+#endif /* defined(__CCADX2Manager__Manager__) */

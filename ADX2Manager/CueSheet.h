@@ -1,13 +1,5 @@
-//
-//  CueSheet.h
-//  CcAdx2Basic
-//
-//  Created by giginet on 2014/6/27.
-//
-//
-
-#ifndef __CcAdx2Basic__CueSheet__
-#define __CcAdx2Basic__CueSheet__
+#ifndef __CCADX2Manager__CueSheet__
+#define __CCADX2Manager__CueSheet__
 
 #include <iostream>
 #include "cri_adx2le.h"
@@ -82,4 +74,4 @@ namespace ADX2 {
 }
 
 
-#endif /* defined(__CcAdx2Basic__CueSheet__) */
+#endif /* defined(__CCADX2Manager__CueSheet__) */

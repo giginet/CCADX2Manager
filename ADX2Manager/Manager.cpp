@@ -1,11 +1,3 @@
-//
-//  Manager.cpp
-//  CcAdx2Basic
-//
-//  Created by giginet on 2014/6/27.
-//
-//
-
 #include "Manager.h"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
