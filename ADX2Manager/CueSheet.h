@@ -13,7 +13,7 @@ namespace ADX2 {
         /// 波形データバンクのハンドル
         CriAtomExAcbHn _acb;
         
-        std::unordered_map<const char*, CriAtomExPlaybackId> _playbackIDs;
+        std::unordered_map<std::string, CriAtomExPlaybackId> _playbackIDs;
         
     CC_CONSTRUCTOR_ACCESS:
         
@@ -76,6 +76,13 @@ namespace ADX2 {
          */
         CriAtomExPlaybackStatus getStatus(CriAtomExPlaybackId playbackID);
         CriAtomExPlaybackStatus getStatus(const char* keyword);
+        
+        /**
+         * 指定されたキーワードからPlaybackIDを取り出します。見つからない場合は-1を返します
+         * @param keyword Playback IDを取得するサウンドのキーワード
+         * @return Playback ID、もしくは-1
+         */
+        CriAtomExPlaybackId getPlaybackID(const char* keyword);
     };
     
 }

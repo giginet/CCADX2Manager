@@ -113,4 +113,12 @@ namespace ADX2 {
         return this->getStatus(playbackId);
     }
     
+    CriAtomExPlaybackId CueSheet::getPlaybackID(const char *keyword)
+    {
+        if (_playbackIDs.find(keyword) == _playbackIDs.end()) {
+            return -1;
+        }
+        return _playbackIDs.at(keyword);
+    }
+    
 }
