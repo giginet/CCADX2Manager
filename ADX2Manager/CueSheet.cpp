@@ -68,9 +68,22 @@ namespace ADX2 {
         return playbackID;
     }
     
+    CriAtomExPlaybackId CueSheet::playCueByID(CriAtomExCueId cueID, const char *keyword)
+    {
+        CriAtomExPlaybackId playbackID = this->playCueByID(cueID);
+        _playbackIDs.insert(std::make_pair(keyword, playbackID));
+        return playbackID;
+    }
+    
     void CueSheet::stop(CriAtomExPlaybackId playbackID)
     {
         criAtomExPlayback_Stop(playbackID);
+    }
+    
+    void CueSheet::stop(const char *keyword)
+    {
+        CriAtomExPlaybackId playbackId = _playbackIDs.at(keyword);
+        this->stop(playbackId);
     }
     
     const char* CueSheet::getCueName(CriAtomExCueId cueID)
@@ -83,9 +96,21 @@ namespace ADX2 {
         return criAtomExPlayback_GetTime(playbackID);
     }
     
+    int64_t CueSheet::getTime(const char *keyword)
+    {
+        CriAtomExPlaybackId playbackId = _playbackIDs.at(keyword);
+        return this->getTime(playbackId);
+    }
+    
     CriAtomExPlaybackStatus CueSheet::getStatus(CriAtomExPlaybackId playbackID)
     {
         return criAtomExPlayback_GetStatus(playbackID);
+    }
+    
+    CriAtomExPlaybackStatus CueSheet::getStatus(const char *keyword)
+    {
+        CriAtomExPlaybackId playbackId = _playbackIDs.at(keyword);
+        return this->getStatus(playbackId);
     }
     
 }

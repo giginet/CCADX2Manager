@@ -2,6 +2,7 @@
 #define __CCADX2Manager__CueSheet__
 
 #include <iostream>
+#include <map>
 #include "cri_adx2le.h"
 #include "cocos2d.h"
 
@@ -11,6 +12,8 @@ namespace ADX2 {
     private:
         /// 波形データバンクのハンドル
         CriAtomExAcbHn _acb;
+        
+        std::unordered_map<const char*, CriAtomExPlaybackId> _playbackIDs;
         
     CC_CONSTRUCTOR_ACCESS:
         
@@ -33,19 +36,21 @@ namespace ADX2 {
         /**
          *  CueSheet内の指定IDの音声データを鳴らします
          *  @param cueID 再生する音声データのcueID
+         *  @param keyword 再生にキーワードを与え、あとで参照できるようにします
          *  @return 再生されたサウンドのPlaybackID
          */
         CriAtomExPlaybackId playCueByID(CriAtomExCueId cueID);
+        CriAtomExPlaybackId playCueByID(CriAtomExCueId cueID, const char* keyword);
         
         static CueSheet* create(const char* acf, const char* acb, const char* awb);
-        
         static CueSheet* create(const char* acf, const char* acb);
         
         /**
          *  指定したPlaybackIDのサウンドを停止します
-         *  @param playbackID 停止するサウンドのPlaybackID
+         *  @param playbackID, keyword 停止するサウンドのPlaybackID、またはキーワード
          */
         void stop(CriAtomExPlaybackId playbackID);
+        void stop(const char *keyword);
         
         /**
          *  CueSheet内の指定IDの音声データの名称を取り出します
@@ -57,18 +62,20 @@ namespace ADX2 {
         /**
          *  指定されたサウンドの再生位置を取り出します
          *  指定IDが再生されていないときは-1が返ります
-         *  @param playbackID 再生位置を取得するサウンドのplaybackID
+         *  @param playbackID, keyword 再生位置を取得するサウンドのplaybackID、またはキーワード
          *  @return 再生位置
          *
          */
         int64_t getTime(CriAtomExPlaybackId playbackID);
+        int64_t getTime(const char* keyword);
         
         /**
          * 指定されたサウンドの状態を取り出します
-         * @param playbackID 状態を取得するサウンドのplaybackID
+         * @param playbackID, keyword 状態を取得するサウンドのplaybackID、またはキーワード
          * @return サウンドの状態
          */
-        CriAtomExPlaybackStatus getStatus(CriAtomExPlaybackId id);
+        CriAtomExPlaybackStatus getStatus(CriAtomExPlaybackId playbackID);
+        CriAtomExPlaybackStatus getStatus(const char* keyword);
     };
     
 }
