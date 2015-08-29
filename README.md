@@ -30,6 +30,21 @@ void update(float dt)
 
 ```
 
+### Store playback ID by keyword
+
+In ordinary way, you have to memory playback id of playing sounds.
+
+`CueSheet` instance have playback id of sounds by keywords.
+
+You can stop or call some methods by keyword.
+
+```cpp
+_cueSheet->playCueByID(CRI_SAMPLE_MAIN_MUSIC, "MainMusic");
+
+int64_t currentTime = _cueSheet->getTime("MainMusic");
+_cueSheet->stop("MainMusic");
+```
+
 ### Shared CueSheet Manager
 
 If you would like to use same cue sheet globally, `SharedCueSheet` may help you.
