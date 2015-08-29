@@ -30,6 +30,27 @@ void update(float dt)
 
 ```
 
+### Shared CueSheet Manager
+
+If you would like to use same cue sheet globally, `SharedCueSheet` may help you.
+
+
+```cpp
+bool AppDelegate::applicationDidFinishLaunching() {
+    // get singleton shared sheet
+    auto sharedCueSheet = ADX2::SharedCueSheet::getInstance();
+
+    // initialize shared cue sheet by acf and acb
+    sharedCueSheet->initialize("sample.acf", "sample.acb");
+
+    // get cue sheet
+    sharedCueSheet->getCueSheet()->playCueByID(CRI_SAMPLE_BGM);
+
+    // perge shared cue sheet
+    SharedCueSheet::destroyInstance();
+}
+```
+
 # Run example
 
 1. copy `cocos2d` to `example`
