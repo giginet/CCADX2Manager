@@ -46,6 +46,15 @@ namespace ADX2 {
         static CueSheet* create(const char* acf, const char* acb);
         
         /**
+         *  CriAtomExAcbHnを返します
+         *  @param 波形データバンクのハンドル
+         */
+        CriAtomExAcbHn getAcbHandler()
+        {
+            return _acb;
+        }
+        
+        /**
          *  指定したPlaybackIDのサウンドを停止します
          *  @param playbackID, keyword 停止するサウンドのPlaybackID、またはキーワード
          */
